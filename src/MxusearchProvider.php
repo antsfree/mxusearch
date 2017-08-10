@@ -16,7 +16,7 @@ class MxusearchProvider extends ServiceProvider
     {
         // Publish a config file
         $this->publishes([
-            __DIR__ . '/../../config/mxusearch.php' => config_path('mxusearch.php'),
+            __DIR__ . '/../config/mxusearch.php' => config_path('mxusearch.php'),
         ], 'config');
     }
 
@@ -27,7 +27,7 @@ class MxusearchProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('search', function () {
+        $this->app->singleton('mxusearch', function () {
             return new MxusearchService();
         });
     }

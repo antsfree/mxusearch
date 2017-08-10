@@ -5,7 +5,8 @@
     "autoload": {
         "psr-4": {
             "Antsfree\\Mxusearch\\": "src/"
-        }
+        },
+        "files": ["src/XS.php"]
     },
     "authors": [
         {

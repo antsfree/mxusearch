@@ -1,9 +1,6 @@
 <?php
 namespace Antsfree\Mxusearch;
 
-use Antsfree\Mxusearch\Sdk\XS;
-use Antsfree\Mxusearch\Sdk\XSDocument as Doc;
-
 class MxusearchService
 {
     /**
@@ -25,11 +22,12 @@ class MxusearchService
 
     public function __construct()
     {
-        $ini_file = __DIR__ . "/../../config/mxusearch.ini";
+        $ini_file = realpath(__DIR__ . "/../config/mxusearch.ini");
         $this->xs = new XS($ini_file);
     }
 
     /**
+     *
      * 索引入口
      *
      * @return mixed
@@ -56,7 +54,7 @@ class MxusearchService
      */
     public function getDocumentInstance()
     {
-        return new Doc();
+        return new XSDocument();
     }
 
     /**
