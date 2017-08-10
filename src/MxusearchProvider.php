@@ -27,7 +27,7 @@ class MxusearchProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('Mxusearch', function () {
+        $this->app->singleton('search', function () {
             return new MxusearchService();
         });
     }

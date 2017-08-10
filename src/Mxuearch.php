@@ -7,6 +7,6 @@ class Mxusearch extends Facade
 {
     public static function getFacadeAccessor()
     {
-        return 'Mxusearch';
+        return 'search';
     }
 }

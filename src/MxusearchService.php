@@ -25,7 +25,7 @@ class MxusearchService
 
     public function __construct()
     {
-        $ini_file = __DIR__ . "/config/xs.ini";
+        $ini_file = __DIR__ . "/../../config/mxusearch.ini";
         $this->xs = new XS($ini_file);
     }
 
