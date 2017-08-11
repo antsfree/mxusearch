@@ -9,15 +9,19 @@ class MxusearchService
 {
     protected $xs;
 
+    protected $doc;
+
     public function __construct()
     {
-        $ini_file       = realpath(__DIR__ . "/../config/mxusearch.ini");
+        $ini_file = realpath(__DIR__ . "/../config/mxusearch.ini");
         $this->xs = new XS($ini_file);
+        // 文档实例化
+        $this->doc = new Doc();
     }
 
     public function mxusearch()
     {
-        return $this->xs;
+        return 1;
     }
 
     /**
@@ -41,16 +45,6 @@ class MxusearchService
         return $this->xs->search;
     }
 
-    /**
-     * 索引文档实例化
-     *
-     * @return Doc
-     */
-    public function getDocumentInstance()
-    {
-
-    }
-
     public function getCurrentTokenizer()
     {
 
@@ -60,24 +54,30 @@ class MxusearchService
      * 增加索引方法
      *
      * @param $data
+     * @return mixed
      */
     public function addIndex($data)
     {
-        $doc = new \XSDocument();
+        $doc = $this->doc;
         $doc->setFields($data);
-        $index = $this->xs->index;
-        $index->add($doc)->flushIndex();
-//        $this->index()->add($doc)->flushIndex();
+        $ret = $this->index()->add($doc)->flushIndex();
+
+        // return bool
+        return $ret;
     }
 
     /**
      * 删除指定索引方法
      *
-     * @param $data
+     * @param array $arr_id
+     * @return mixed
      */
-    public function deleteIndex($data)
+    public function deleteIndex(array $arr_id)
     {
-        $this->index()->del($data)->flushIndex();
+        $ret = $this->index()->del($arr_id)->flushIndex();
+
+        // return bool
+        return $ret;
     }
 
     /**
@@ -87,7 +87,7 @@ class MxusearchService
      */
     public function updateIndex($data)
     {
-        $doc = $this->getDocumentInstance();
+        $doc = $this->doc;
         $doc->setFields($data);
         $this->index()->update($data)->flushIndex();
     }
@@ -100,7 +100,7 @@ class MxusearchService
     {
         $this->index()->clean();
         // 查询剩余索引数量
-        $total = $this->getIndexTotalNum() ?: 0;
+        $total = $this->getIndexCount() ?: 0;
         if ($total) {
             return false;
         }
@@ -115,7 +115,7 @@ class MxusearchService
      */
     protected function rebuildIndex($data)
     {
-        $doc = $this->getDocumentInstance();
+        $doc = $this->doc;
         $doc->setFields($data);
         $this->index()->beginRebuild();
         $this->index()->add($doc);
@@ -127,9 +127,9 @@ class MxusearchService
      *
      * @return mixed
      */
-    public function getIndexTotalNum()
+    public function getIndexCount($key = null)
     {
-        $total = $this->search()->dbTotal();
+        $total = $this->search()->count($key);
 
         return $total;
     }

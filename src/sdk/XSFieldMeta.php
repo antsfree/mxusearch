@@ -91,7 +91,7 @@ class XSFieldMeta
                 $name = 'XSTokenizer' . ucfirst($this->tokenizer);
                 $arg = null;
             }
-            $name = 'Fook\xunsearch\\'.$name;
+            $name = 'Antsfree\Mxusearch\Sdk\\'.$name;
             if (!class_exists($name)) {
                 $file = $name . '.class.php';
                 if (file_exists($file)) {

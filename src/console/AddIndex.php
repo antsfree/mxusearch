@@ -4,7 +4,10 @@ namespace Antsfree\Mxusearch\Console;
 
 use Antsfree\Mxusearch\Mxusearch;
 use Illuminate\Console\Command;
+use MXU\Content\Models\Article;
+use MXU\Content\Models\Column;
 use MXU\Content\Models\ContentPublish;
+use MXU\Terminal\Models\Site;
 
 class AddIndex extends Command
 {
@@ -23,9 +26,7 @@ class AddIndex extends Command
     protected $description = 'Create a new mxusearch index by ids.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
+     * AddIndex constructor.
      */
     public function __construct()
     {
@@ -44,13 +45,15 @@ class AddIndex extends Command
         if (!$published) {
             echo '没有发布记录';
         }
-        $index = [
+        $site_title  = Site::siteInfo('title');
+        $column_name = Column::columnInfo('column_name');
+        $index       = [
             'id'              => $published->id,
             'order_id'        => $published->order_id,
             'site_id'         => $published->site_id,
-//            'site_info'       => '',
+            'site_info'       => $site_title[$published->site_id],
             'column_id'       => $published->column_id,
-//            'column_info'     => '',
+            'column_name'     => $column_name[$published->column_id],
             'origin_id'       => $published->origin_id,
             'type'            => $published->type,
             'title'           => $published->title,
@@ -63,9 +66,16 @@ class AddIndex extends Command
             'source'          => $published->source,
             'source_link'     => $published->source_link,
             'publish_time'    => $published->publish_time,
-            'content'         => $published->content,
+            'content'         => '',
         ];
-       Mxusearch::addIndex($index);
+
+        if ($published->type == 'article') {
+            $article = Article::find($published->origin_id);
+            $index['content'] = strip_tags($article->content);
+        }
+        print_r($index);die;
+        $ret = Mxusearch::addIndex($index);
+        var_dump($ret);
 //        var_dump($ret);
 //        $a = Mxusearch::getCurrentTokenizer();
 //        var_dump($a);
