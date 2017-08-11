@@ -3,7 +3,6 @@ namespace Antsfree\Mxusearch;
 
 use Antsfree\Mxusearch\SDK\XS;
 use Antsfree\Mxusearch\SDK\XSDocument as Doc;
-use Antsfree\Mxusearch\SDK\XSFieldMeta as Field;
 
 class MxusearchService
 {
@@ -17,11 +16,6 @@ class MxusearchService
         $this->xs = new XS($ini_file);
         // 文档实例化
         $this->doc = new Doc();
-    }
-
-    public function mxusearch()
-    {
-        return 1;
     }
 
     /**
@@ -43,11 +37,6 @@ class MxusearchService
     public function search()
     {
         return $this->xs->search;
-    }
-
-    public function getCurrentTokenizer()
-    {
-
     }
 
     /**
@@ -180,5 +169,4 @@ class MxusearchService
             $this->search()->search('title:' . $search_text);
         }
     }
-
 }

@@ -12,7 +12,7 @@ class SearchIndex extends Command
      *
      * @var string
      */
-    protected $signature = 'mxusearch:search {field} {key}';
+    protected $signature = 'mxusearch:search {field?} {key}';
 
     /**
      * The console command description.

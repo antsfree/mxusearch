@@ -70,14 +70,14 @@ class AddIndex extends Command
         ];
 
         if ($published->type == 'article') {
-            $article = Article::find($published->origin_id);
+            $article          = Article::find($published->origin_id);
             $index['content'] = strip_tags($article->content);
         }
-        print_r($index);die;
         $ret = Mxusearch::addIndex($index);
-        var_dump($ret);
-//        var_dump($ret);
-//        $a = Mxusearch::getCurrentTokenizer();
-//        var_dump($a);
+        if ($ret) {
+            echo '索引创建成功';
+        } else {
+            echo '索引创建失败';
+        }
     }
 }

@@ -40,9 +40,9 @@ class ClearIndex extends Command
     {
         $is_empty = Mxusearch::cleanIndex();
         if ($is_empty) {
-            echo 'success';
+            echo '数据已清空';
         } else {
-            echo 'failed';
+            echo '数据清空失败';
         }
     }
 }
