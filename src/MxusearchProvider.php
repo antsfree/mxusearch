@@ -1,6 +1,10 @@
 <?php
 namespace Antsfree\Mxusearch;
 
+use Antsfree\Mxusearch\Console\AddIndex;
+use Antsfree\Mxusearch\Console\ClearIndex;
+use Antsfree\Mxusearch\Console\DeleteIndex;
+use Antsfree\Mxusearch\Console\SearchIndex;
 use Illuminate\Support\ServiceProvider;
 
 class MxusearchProvider extends ServiceProvider
@@ -29,19 +33,19 @@ class MxusearchProvider extends ServiceProvider
     {
         // add index
         $this->app->bindShared('mxusearch.index.add', function () {
-            return new Console\AddIndex();
+            return new AddIndex();
         });
         // search
         $this->app->bindShared('mxusearch.search', function () {
-            return new Console\SearchIndex();
+            return new SearchIndex();
         });
         // clear
         $this->app->bindShared('mxusearch.clear', function () {
-            return new Console\ClearIndex();
+            return new ClearIndex();
         });
         // delete by ids
         $this->app->bindShared('mxusearch.index.del', function () {
-            return new Console\DeleteIndex();
+            return new DeleteIndex();
         });
 
         $this->commands([
