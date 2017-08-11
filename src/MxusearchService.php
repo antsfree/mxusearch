@@ -1,29 +1,23 @@
 <?php
 namespace Antsfree\Mxusearch;
 
+use Antsfree\Mxusearch\SDK\XS;
+use Antsfree\Mxusearch\SDK\XSDocument as Doc;
+use Antsfree\Mxusearch\SDK\XSFieldMeta as Field;
+
 class MxusearchService
 {
-    /**
-     * 表示: 全文搜索模式
-     */
-    const FULLTEXT_MODE = 1;
-
-    /**
-     * 表示: 标题搜索模式
-     */
-    const TITLE_MODE = 0;
-
-    /**
-     * 默认最大热词显示
-     */
-    const MAX_HOT_WORD_NUM = 50;
-
     protected $xs;
 
     public function __construct()
     {
-        $ini_file = realpath(__DIR__ . "/../config/mxusearch.ini");
+        $ini_file       = realpath(__DIR__ . "/../config/mxusearch.ini");
         $this->xs = new XS($ini_file);
+    }
+
+    public function mxusearch()
+    {
+        return $this->xs;
     }
 
     /**
@@ -54,7 +48,12 @@ class MxusearchService
      */
     public function getDocumentInstance()
     {
-        return new XSDocument();
+
+    }
+
+    public function getCurrentTokenizer()
+    {
+
     }
 
     /**
@@ -64,9 +63,11 @@ class MxusearchService
      */
     public function addIndex($data)
     {
-        $doc = $this->getDocumentInstance();
+        $doc = new \XSDocument();
         $doc->setFields($data);
-        $this->index()->add($doc)->flushIndex();
+        $index = $this->xs->index;
+        $index->add($doc)->flushIndex();
+//        $this->index()->add($doc)->flushIndex();
     }
 
     /**
@@ -143,7 +144,7 @@ class MxusearchService
     public function getHotWordsWithRate()
     {
         // 获取热词,默认最大 50 个.currnum 表示本周
-        $words = $this->search()->getHotQuery(self::MAX_HOT_WORD_NUM, 'currnum') ?: [];
+        $words = $this->search()->getHotQuery(config('mxusearch.max_hot_words'), 'currnum') ?: [];
 
         return $words;
     }
@@ -169,7 +170,7 @@ class MxusearchService
     public function searchIndex($search_array)
     {
         // 搜索模式
-        $search_mode = isset($search_array['search_mode']) && $search_array['search_mode'] ? self::FULLTEXT_MODE : self::TITLE_MODE;
+        $search_mode = config('mxusearch.search_mode');
         // 搜索内容
         $search_text = $search_array['search_text'];
         // 查询

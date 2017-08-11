@@ -1,17 +1,16 @@
 {
-    "name": "antsfree/mxusearch",
-    "description": "this is mxu fulltext search application.",
-    "type": "path",
-    "autoload": {
-        "psr-4": {
-            "Antsfree\\Mxusearch\\": "src/"
-        },
-        "files": ["src/XS.php"]
-    },
-    "authors": [
-        {
-            "name": "徐炜增",
-            "email": "xuweizeng@hoge.cn"
-        }
-    ]
+  "name": "antsfree/mxusearch",
+  "description": "this is mxu fulltext search application.",
+  "type": "path",
+  "autoload": {
+    "psr-4": {
+      "Antsfree\\Mxusearch\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "徐炜增",
+      "email": "xuweizeng@hoge.cn"
+    }
+  ]
 }
