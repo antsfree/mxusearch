@@ -49,7 +49,10 @@ class MxusearchService
     {
         $doc = $this->doc;
         $doc->setFields($data);
+        // 索引缓冲区,默认8M
+        $this->index()->openBuffer(8);
         $ret = $this->index()->add($doc)->flushIndex();
+        $this->index()->closeBuffer();
 
         // return bool
         return $ret;
@@ -63,7 +66,9 @@ class MxusearchService
      */
     public function deleteIndex(array $arr_id)
     {
+        $this->index()->openBuffer(8);
         $ret = $this->index()->del($arr_id)->flushIndex();
+        $this->index()->closeBuffer();
 
         // return bool
         return $ret;
