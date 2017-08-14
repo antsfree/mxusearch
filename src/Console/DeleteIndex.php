@@ -12,7 +12,7 @@ class DeleteIndex extends Command
      *
      * @var string
      */
-    protected $signature = 'mxusearch:delete {str_ids}';
+    protected $signature = 'search:delete-index {str_ids}';
 
     /**
      * The console command description.
@@ -38,10 +38,14 @@ class DeleteIndex extends Command
     {
         $str_ids = $this->argument('str_ids');
         if (!$str_ids) {
-            echo '请输入需要删除的索引ID';
+            $this->line('请输入需要删除的索引ID');
         }
         $arr_ids = explode(',', $str_ids);
         $ret     = Mxusearch::deleteIndex($arr_ids);
-        var_dump($ret);
+        if ($ret) {
+            $this->line('索引删除成功');
+        } else {
+            $this->error('索引删除失败');
+        }
     }
 }

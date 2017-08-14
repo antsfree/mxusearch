@@ -12,7 +12,7 @@ class ClearIndex extends Command
      *
      * @var string
      */
-    protected $signature = 'mxusearch:clear';
+    protected $signature = 'search:clear-index';
 
     /**
      * The console command description.

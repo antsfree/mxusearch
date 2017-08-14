@@ -12,7 +12,7 @@ class SearchIndex extends Command
      *
      * @var string
      */
-    protected $signature = 'mxusearch:search {field} {key}';
+    protected $signature = 'search:search';
 
     /**
      * The console command description.
@@ -38,6 +38,10 @@ class SearchIndex extends Command
      */
     public function handle()
     {
+        $search_area = $this->choice('选择需要搜索的字段:', ['(默认)全局搜索', '仅标题', '仅正文', '仅关键词']);
+        echo $search_area;
+        die;
+
         $field                       = $this->argument('field');
         $search_array['search_text'] = $this->argument('key');
 

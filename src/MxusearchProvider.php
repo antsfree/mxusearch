@@ -31,10 +31,6 @@ class MxusearchProvider extends ServiceProvider
      */
     public function addConsoleCommands()
     {
-        // add index
-        $this->app->bindShared('mxusearch.index.add', function () {
-            return new AddIndex();
-        });
         // search
         $this->app->bindShared('mxusearch.search', function () {
             return new SearchIndex();
@@ -49,7 +45,6 @@ class MxusearchProvider extends ServiceProvider
         });
 
         $this->commands([
-            'mxusearch.index.add',
             'mxusearch.search',
             'mxusearch.clear',
             'mxusearch.index.del',
