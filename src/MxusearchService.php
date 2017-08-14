@@ -12,7 +12,7 @@ class MxusearchService
 
     public function __construct()
     {
-        $ini_file = realpath(__DIR__ . "/../config/mxusearch.ini");
+        $ini_file = config_path('mxusearch.ini');
         $this->xs = new XS($ini_file);
         // 文档实例化
         $this->doc = new Doc();
