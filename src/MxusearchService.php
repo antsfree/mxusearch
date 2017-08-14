@@ -1,8 +1,8 @@
 <?php
 namespace Antsfree\Mxusearch;
 
-use Antsfree\Mxusearch\SDK\XS;
-use Antsfree\Mxusearch\SDK\XSDocument as Doc;
+use Antsfree\Mxusearch\Sdk\XS;
+use Antsfree\Mxusearch\Sdk\XSDocument as Doc;
 
 class MxusearchService
 {
