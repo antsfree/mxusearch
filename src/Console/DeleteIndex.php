@@ -12,7 +12,7 @@ class DeleteIndex extends Command
      *
      * @var string
      */
-    protected $signature = 'search:delete-index {str_ids}';
+    protected $signature = 'search:delete {str_ids}';
 
     /**
      * The console command description.

@@ -12,7 +12,7 @@ class ClearIndex extends Command
      *
      * @var string
      */
-    protected $signature = 'search:clear-index';
+    protected $signature = 'search:clear';
 
     /**
      * The console command description.

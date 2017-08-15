@@ -12,7 +12,7 @@ class FlushIndex extends Command
      *
      * @var string
      */
-    protected $signature = 'search:flush-index';
+    protected $signature = 'search:flush';
 
     /**
      * The console command description.
