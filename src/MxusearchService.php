@@ -3,6 +3,7 @@ namespace Antsfree\Mxusearch;
 
 use Antsfree\Mxusearch\Sdk\XS;
 use Antsfree\Mxusearch\Sdk\XSDocument as Doc;
+use Antsfree\Mxusearch\Sdk\XSServer as Server;
 
 class MxusearchService
 {
@@ -10,12 +11,15 @@ class MxusearchService
 
     protected $doc;
 
+    protected $server;
+
     public function __construct()
     {
         $ini_file = config_path('mxusearch.ini');
         $this->xs = new XS($ini_file);
         // 文档实例化
-        $this->doc = new Doc();
+        $this->doc    = new Doc();
+        $this->server = new Server();
     }
 
     /**
@@ -56,7 +60,7 @@ class MxusearchService
     }
 
     /**
-     * 删除指定索引方法
+     * 删除指定索引方法,支持批量删除
      *
      * @param array $arr_id
      * @return mixed
@@ -68,19 +72,6 @@ class MxusearchService
         // return bool
         return $ret;
     }
-
-    /**
-     * 更新索引方法
-     *
-     * @param $data
-     */
-    public function updateIndex($data)
-    {
-        $doc = $this->doc;
-        $doc->setFields($data);
-        $this->index()->update($data)->flushIndex();
-    }
-
 
     /**
      * 清空索引方法
@@ -98,7 +89,7 @@ class MxusearchService
     }
 
     /**
-     * 完全重建索引方法{暂不开放使用}
+     * 完全重建索引方法{暂不使用}
      *
      * @param $data
      */
@@ -114,6 +105,7 @@ class MxusearchService
     /**
      * 获取索引总数
      *
+     * @param null $key
      * @return mixed
      */
     public function getIndexCount($key = null)

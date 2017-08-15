@@ -2,6 +2,7 @@
 namespace Antsfree\Mxusearch;
 
 use Antsfree\Mxusearch\Console\AddIndex;
+use Antsfree\Mxusearch\Console\CheckService;
 use Antsfree\Mxusearch\Console\ClearIndex;
 use Antsfree\Mxusearch\Console\DeleteIndex;
 use Antsfree\Mxusearch\Console\SearchIndex;
@@ -43,11 +44,16 @@ class MxusearchProvider extends ServiceProvider
         $this->app->bindShared('mxusearch.index.del', function () {
             return new DeleteIndex();
         });
+        // delete by ids
+        $this->app->bindShared('mxusearch.check.service', function () {
+            return new CheckService();
+        });
 
         $this->commands([
             'mxusearch.search',
             'mxusearch.clear',
             'mxusearch.index.del',
+            'mxusearch.check.service',
         ]);
     }
 
