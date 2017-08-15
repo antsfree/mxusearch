@@ -191,4 +191,27 @@ class MxusearchService
 
         return false;
     }
+
+    /**
+     * 搜索服务状态检测
+     *
+     * @return bool
+     */
+    public function checkServer()
+    {
+        $ini = config_path('mxusearch.ini');
+        if (!file_exists($ini)) {
+            return false;
+        }
+        try {
+            $count = Mxusearch::getIndexCount();
+            if (isset($count)) {
+                return true;
+            }
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return false;
+    }
 }
