@@ -39,12 +39,12 @@ class ClearIndex extends Command
         try {
             $is_empty = Mxusearch::cleanIndex();
             if ($is_empty) {
-                echo '数据已清空';
+                $this->line("数据已清空\n");
             } else {
-                echo '数据清空失败';
+                $this->error("数据清空失败\n");
             }
         } catch (\Exception $e) {
-            $this->error('讯搜服务异常');
+            $this->error("讯搜服务异常\n");
         }
     }
 }

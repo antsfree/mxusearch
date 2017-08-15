@@ -38,17 +38,17 @@ class CheckService extends Command
     {
         $ini = config_path('mxusearch.ini');
         if (!file_exists($ini)) {
-            $this->error('配置文件不存在');
+            $this->error("配置文件不存在\n");
 
             return;
         }
         try {
             $count = Mxusearch::getIndexCount();
             if (isset($count)) {
-                $this->line("搜索服务正常,当前共有 $count 条索引");
+                $this->line("搜索服务正常,当前共有 $count 条索引\n");
             }
         } catch (\Exception $e) {
-            $this->error('讯搜服务异常');
+            $this->error("讯搜服务异常\n");
         }
     }
 }

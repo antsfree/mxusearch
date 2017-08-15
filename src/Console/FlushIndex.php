@@ -39,18 +39,18 @@ class FlushIndex extends Command
         try {
             $index_flush = Mxusearch::flushIndex();
             if ($index_flush) {
-                $this->line('索引强制刷新成功');
+                $this->line("索引强制刷新成功\n");
             } else {
-                $this->error('索引强制刷新失败');
+                $this->error("索引强制刷新失败\n");
             }
             $log_flush = Mxusearch::flushLogging();
             if ($log_flush) {
-                $this->line('搜索日志强制刷新成功');
+                $this->line("搜索日志强制刷新成功\n");
             } else {
-                $this->error('搜索日志强制刷新失败');
+                $this->error("搜索日志强制刷新失败\n");
             }
         } catch (\Exception $e) {
-            $this->error('讯搜服务异常');
+            $this->error("讯搜服务异常\n");
         }
     }
 }

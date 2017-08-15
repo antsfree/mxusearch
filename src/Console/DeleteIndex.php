@@ -38,18 +38,18 @@ class DeleteIndex extends Command
     {
         $str_ids = $this->argument('str_ids');
         if (!$str_ids) {
-            $this->line('请输入需要删除的索引ID');
+            $this->line("请输入需要删除的索引ID\n");
         }
         $arr_ids = explode(',', $str_ids);
         try {
             $ret = Mxusearch::deleteIndex($arr_ids);
             if ($ret) {
-                $this->line('索引删除成功');
+                $this->line("索引删除成功\n");
             } else {
-                $this->error('索引删除失败');
+                $this->error("索引删除失败\n");
             }
         } catch (\Exception $e) {
-            $this->error('讯搜服务异常');
+            $this->error("讯搜服务异常\n");
         }
     }
 }
