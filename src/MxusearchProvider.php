@@ -45,7 +45,7 @@ class MxusearchProvider extends ServiceProvider
             return new DeleteIndex();
         });
         // delete by ids
-        $this->app->bindShared('mxusearch.check.service', function () {
+        $this->app->bindShared('mxusearch.check.server', function () {
             return new CheckService();
         });
 
@@ -53,7 +53,7 @@ class MxusearchProvider extends ServiceProvider
             'mxusearch.search',
             'mxusearch.clear',
             'mxusearch.index.del',
-            'mxusearch.check.service',
+            'mxusearch.check.server',
         ]);
     }
 

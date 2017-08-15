@@ -12,7 +12,7 @@ class CheckService extends Command
      *
      * @var string
      */
-    protected $signature = 'search:check-service';
+    protected $signature = 'search:check-server';
 
     /**
      * The console command description.
@@ -42,18 +42,11 @@ class CheckService extends Command
         }
         try {
             $count = Mxusearch::getIndexCount();
+            if (isset($count)) {
+                $this->line("搜索服务正常,当前共有 $count 条索引");
+            }
         } catch (\Exception $e) {
             $this->error('讯搜服务异常');
-
-            return;
         }
-
-        if (isset($count)) {
-            $this->line("搜索服务正常,当前索引总数为 $count 条");
-
-            return;
-        }
-
-        $this->error('讯搜服务异常');
     }
 }
