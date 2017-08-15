@@ -36,11 +36,15 @@ class ClearIndex extends Command
      */
     public function handle()
     {
-        $is_empty = Mxusearch::cleanIndex();
-        if ($is_empty) {
-            echo '数据已清空';
-        } else {
-            echo '数据清空失败';
+        try {
+            $is_empty = Mxusearch::cleanIndex();
+            if ($is_empty) {
+                echo '数据已清空';
+            } else {
+                echo '数据清空失败';
+            }
+        } catch (\Exception $e) {
+            $this->error('讯搜服务异常');
         }
     }
 }
