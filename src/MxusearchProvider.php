@@ -5,6 +5,7 @@ use Antsfree\Mxusearch\Console\AddIndex;
 use Antsfree\Mxusearch\Console\CheckService;
 use Antsfree\Mxusearch\Console\ClearIndex;
 use Antsfree\Mxusearch\Console\DeleteIndex;
+use Antsfree\Mxusearch\Console\FlushIndex;
 use Antsfree\Mxusearch\Console\SearchIndex;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,22 +38,27 @@ class MxusearchProvider extends ServiceProvider
             return new SearchIndex();
         });
         // clear
-        $this->app->bindShared('mxusearch.clear', function () {
+        $this->app->bindShared('mxusearch.index.clear', function () {
             return new ClearIndex();
         });
         // delete by ids
         $this->app->bindShared('mxusearch.index.del', function () {
             return new DeleteIndex();
         });
-        // delete by ids
+        // check search server status
         $this->app->bindShared('mxusearch.check.server', function () {
             return new CheckService();
+        });
+        // flush search index
+        $this->app->bindShared('mxusearch.index.flush', function () {
+            return new FlushIndex();
         });
 
         $this->commands([
             'mxusearch.search',
-            'mxusearch.clear',
+            'mxusearch.index.clear',
             'mxusearch.index.del',
+            'mxusearch.index.flush',
             'mxusearch.check.server',
         ]);
     }

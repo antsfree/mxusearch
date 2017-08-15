@@ -161,4 +161,34 @@ class MxusearchService
             $this->search()->search('title:' . $search_text);
         }
     }
+
+    /**
+     * 强制刷新服务端的当前库的索引缓存
+     *
+     * @return bool
+     */
+    public function flushIndex()
+    {
+        $ret = $this->index()->flushIndex();
+        if ($ret) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * 强制刷新服务端当前项目的搜索日志
+     *
+     * @return bool
+     */
+    public function flushLogging()
+    {
+        $ret = $this->index()->flushLogging();
+        if ($ret) {
+            return true;
+        }
+
+        return false;
+    }
 }
