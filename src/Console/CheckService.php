@@ -39,6 +39,8 @@ class CheckService extends Command
         $ini = config_path('mxusearch.ini');
         if (!file_exists($ini)) {
             $this->error('配置文件不存在');
+
+            return;
         }
         try {
             $count = Mxusearch::getIndexCount();
