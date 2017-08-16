@@ -6,6 +6,7 @@ use Antsfree\Mxusearch\Console\CheckService;
 use Antsfree\Mxusearch\Console\ClearIndex;
 use Antsfree\Mxusearch\Console\DeleteIndex;
 use Antsfree\Mxusearch\Console\FlushIndex;
+use Antsfree\Mxusearch\Console\ScwsText;
 use Antsfree\Mxusearch\Console\SearchIndex;
 use Illuminate\Support\ServiceProvider;
 
@@ -53,12 +54,17 @@ class MxusearchProvider extends ServiceProvider
         $this->app->bindShared('mxusearch.index.flush', function () {
             return new FlushIndex();
         });
+        // scws text for keywords
+        $this->app->bindShared('mxusearch.index.scws', function () {
+            return new ScwsText();
+        });
 
         $this->commands([
             'mxusearch.search',
             'mxusearch.index.clear',
             'mxusearch.index.del',
             'mxusearch.index.flush',
+            'mxusearch.index.scws',
             'mxusearch.check.server',
         ]);
     }

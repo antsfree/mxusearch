@@ -4,6 +4,7 @@ namespace Antsfree\Mxusearch;
 use Antsfree\Mxusearch\Sdk\XS;
 use Antsfree\Mxusearch\Sdk\XSDocument as Doc;
 use Antsfree\Mxusearch\Sdk\XSServer as Server;
+use Antsfree\Mxusearch\Sdk\XSTokenizerScws;
 
 class MxusearchService
 {
@@ -242,6 +243,30 @@ class MxusearchService
     {
         $hot = $this->search()->getHotQuery();
 
+        // array
         return $hot ?: [];
+    }
+
+    /**
+     * 内容分词,获取关键词
+     *
+     * @param $text
+     * @param int $count
+     * @return array
+     */
+    public function getKeyWords($text, $count = 0)
+    {
+        $scws = new XSTokenizerScws();
+        // 忽略标点
+        $key_words = $scws->getTops($text, $count, '') ?: [];
+        $words     = [];
+        if ($key_words) {
+            foreach ($key_words as $k => $v) {
+                $words[] = $v['word'];
+            }
+        }
+
+        // array
+        return $words;
     }
 }

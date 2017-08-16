@@ -19,7 +19,7 @@ class DeleteIndex extends Command
      *
      * @var string
      */
-    protected $description = 'Delete index by ids. exp: 1,2,3';
+    protected $description = 'Delete index by ids. exp: 1,2,3.';
 
     /**
      * DeleteIndex constructor.
