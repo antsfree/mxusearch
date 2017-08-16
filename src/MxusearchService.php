@@ -53,10 +53,14 @@ class MxusearchService
     {
         $doc = $this->doc;
         $doc->setFields($data);
-        $ret = $this->index()->add($doc)->flushIndex();
+        $ret = $this->index()->add($doc);
+        if ($ret) {
+            $this->flushIndex();
 
-        // return bool
-        return $ret;
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -145,21 +149,18 @@ class MxusearchService
 
     /**
      * 索引搜索
-     *
-     * @param $search_array
      */
-    public function searchIndex($search_array)
+    public function searchIndex($key, $field = null)
     {
-        // 搜索模式
-        $search_mode = config('mxusearch.search_mode');
-        // 搜索内容
-        $search_text = $search_array['search_text'];
         // 查询
-        if ($search_mode) {
-            $this->search()->search($search_text);
+        if (!$field) {
+            $ret = $this->search()->search($key);
         } else {
-            $this->search()->search('title:' . $search_text);
+            $ret = $this->search()->search($field . ':' . $key);
         }
+        $hot = $this->search()->getHotQuery();
+
+        return $ret;
     }
 
     /**
@@ -211,7 +212,10 @@ class MxusearchService
         } catch (\Exception $e) {
             return false;
         }
+    }
 
-        return false;
+    public function getHotWords()
+    {
+        $array_hot = $this->search()->getHotQuery();
     }
 }
