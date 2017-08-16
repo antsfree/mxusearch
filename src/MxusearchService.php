@@ -13,13 +13,18 @@ class MxusearchService
 
     protected $server;
 
+    /**
+     * ini 配置文件绝对路径
+     * @var string
+     */
+    protected $ini_file;
+
     public function __construct()
     {
-        $ini_file = config_path('mxusearch.ini');
-        $this->xs = new XS($ini_file);
-        // 文档实例化
-        $this->doc    = new Doc();
-        $this->server = new Server();
+        $this->ini_file = config_path(config('mxusearch.ini_file_name'));
+        $this->xs       = new XS($this->ini_file);
+        $this->doc      = new Doc();
+        $this->server   = new Server();
     }
 
     /**
@@ -215,8 +220,7 @@ class MxusearchService
      */
     public function checkServer()
     {
-        $ini = config_path('mxusearch.ini');
-        if (!file_exists($ini)) {
+        if (!file_exists($this->ini_file)) {
             return false;
         }
         try {

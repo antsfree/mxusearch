@@ -4,23 +4,39 @@
 >全文检索服务是基于开源项目`xunsearch`封装的全文搜索引擎，服务仍在完善。
 
 ### 服务安装配置
-1. 通过`composer` 安装搜索服务, 输入如下命令安装最新版本.
+**1.** 通过`composer` 安装搜索服务, 输入如下命令安装最新版本.
 
 ```
 composer require antsfree/mxusearch dev-master
 ```
 
-2. 在 config/app.php 的服务数组 providers 中添加以下服务.
+**2.** 在 config/app.php 的服务数组 providers 中添加以下服务.
 
 ```
 Antsfree\Mxusearch\MxusearchProvider::class
 ```
 
-3. 在  config/app.php 的门面数组  aliases 中添加以下门面. 
+**3.** 在  config/app.php 的门面数组  aliases 中添加以下门面. 
 
 ```
 'Mxusearch' => Antsfree\Mxusearch\Mxusearch::class,
 ```
+
+
+**4.** 执行如下命令, 配置`mxusearch.php`配置文件；
+
+```
+php artisan vendor:publish --provider="Antsfree\Mxusearch\MxusearchProvider"
+```
+
+**5.** 分布式安装，各自`laravel`项目需要配置以下`env`参数：
+
+| env配置 | 中文释义 | 默认值 |
+| :--: | :--: | :--: |
+| MXUSEARCH\_HOST | 索引服务器IP | 127.0.0.1 | 
+| MXUSEARCH\_INDEX_PORT | 索引端口 | 8383 |
+| MXUSEARCH\_PORT | 搜索端口 | 8384 |
+| MXUSEARCH\_INI | INI配置文件名 | mxusearch.ini |
 
 ### 基本服务方法设定
 
@@ -63,6 +79,7 @@ Antsfree\Mxusearch\MxusearchProvider::class
 1. 索引更新：多条同时更新存在时间误差，具体时长和需要创建的索引数量有关系，具体在`2~4分钟`能实现索引的更新；
 2. 索引创建：多条同时新增存在时间误差，具体时长和需要创建的索引数量有关系，具体在`2~4分钟`能实现索引的创建；
 3. 当前只支持单库存储；
+4. ini配置默认存于`laravel config`目录中；
 
 
 ### 讯搜服务官方SDK参考
