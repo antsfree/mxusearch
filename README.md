@@ -27,7 +27,7 @@ Antsfree\Mxusearch\MxusearchProvider::class
 
 
 | 序号 | 方法名称 | 中文释义 | 备注 | 
-| --- | --- | --- | --- | --- |
+| :--: | :--: |:--: |:--: |
 | 1 | addIndex | 创建索引| 单条支持即时同步，多条存在时间误差，具体在2~3分钟，视具体情况 |
 | 2 | deleteIndex | 删除索引 | 单条多条立即生效，无延迟 |
 | 4 | searchIndex | 查找索引 | 支持setFuzzy模糊查询，支持特定字段定向查询（column:key） |
