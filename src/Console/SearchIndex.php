@@ -69,7 +69,13 @@ class SearchIndex extends Command
         $count    = isset($search['result']) ? count($search['result']) : 0;
         $duration = isset($search['duration']) ? $search['duration'] : 0;
         if (isset($search['result']) && $search['result']) {
+            $n = 0;
             foreach ($search['result'] as $k => $v) {
+                $n++;
+                // 限制显示10条
+                if ($n > 10) {
+                    break;
+                }
                 $k += 1;
                 $text = "第{$k}条:\n";
                 foreach ($v as $kk => $vv) {
