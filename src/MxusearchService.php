@@ -254,7 +254,7 @@ class MxusearchService
      * @param int $count
      * @return array
      */
-    public function getKeyWords($text, $count = 0)
+    public function getKeyWords($text, $count = 10)
     {
         $scws = new XSTokenizerScws();
         // 忽略标点
