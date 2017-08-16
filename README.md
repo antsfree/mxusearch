@@ -56,7 +56,7 @@ php artisan vendor:publish --provider="Antsfree\Mxusearch\MxusearchProvider"
 | 12| flushIndex | 强制刷新索引 | 强制刷新实现索引的即加即搜 |
 | 13| flushLogging | 强制刷新搜索日志 |  |
 | 14| checkServer | 讯搜服务状态检测 |  |
-
+| 15| getKeyWords | 文本分词功能 |  |
 
 ### Artisan命令服务
 
@@ -72,6 +72,7 @@ php artisan vendor:publish --provider="Antsfree\Mxusearch\MxusearchProvider"
 | 4 | search:clear| 清空索引 |  立即生效，无延迟 |
 | 5 | search:check-server | 检测全文检索服务状态 | 直接输出当前状态及索引条数 |
 | 6| search:flush| 强制刷新索引及搜索日志 | 默认为异步创建索引，强制刷新实现索引的即加即搜 |
+| 7| search:scws| 文本分词命令 |  |
 
 
 ### 索引管理注意事项：
