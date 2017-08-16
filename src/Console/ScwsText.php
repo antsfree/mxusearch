@@ -46,6 +46,8 @@ class ScwsText extends Command
                     $k += 1;
                     $this->line("关键词[{$k}]:{$v}");
                 }
+                $word_num = count($keywords);
+                $this->line("该内容共产生 < {$word_num} > 个关键词");
             } else {
                 $this->error("未获取到分词,请检查服务\n");
             }
