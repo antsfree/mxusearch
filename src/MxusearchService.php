@@ -149,18 +149,48 @@ class MxusearchService
 
     /**
      * 索引搜索
+     *
+     * @param $key @关键词
+     * @param null $field @匹配字段
+     *
+     * @return array
      */
     public function searchIndex($key, $field = null)
     {
+        // 模糊搜索
+        $this->search()->setFuzzy(true);
+        // 同义词搜索
+        $this->search()->setAutoSynonyms(true);
         // 查询
         if (!$field) {
-            $ret = $this->search()->search($key);
+            // set query
+            $this->search()->setQuery($key);
         } else {
-            $ret = $this->search()->search($field . ':' . $key);
+            // set query
+            $this->search()->setQuery($field . ':' . $key);
         }
-        $hot = $this->search()->getHotQuery();
+        // search time
+        $search_begin    = microtime(true);
+        $doc             = $this->search()->search();
+        $search_duration = microtime(true) - $search_begin;
+        // get search result
+        $result = [];
+        if ($doc) {
+            foreach ($doc as $k => $v) {
+                foreach ($v as $kk => $vv) {
+                    $result[$k][$kk] = $vv;
+                }
+            }
+        }
+        // 整合结果
+        $search_result = [
+            'result'   => $result,
+            'duration' => $search_duration,
+        ];
+        // refresh search log
+        $this->flushLogging();
 
-        return $ret;
+        return $search_result;
     }
 
     /**
