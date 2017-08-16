@@ -120,21 +120,6 @@ class MxusearchService
     }
 
     /**
-     * 获取热词,默认选取本周
-     * {建议自动收录实现一周一次的自动收录}
-     * {内含搜索频次}
-     *
-     * @return array
-     */
-    public function getHotWordsWithRate()
-    {
-        // 获取热词,默认最大 50 个.currnum 表示本周
-        $words = $this->search()->getHotQuery(config('mxusearch.max_hot_words'), 'currnum') ?: [];
-
-        return $words;
-    }
-
-    /**
      * 获取搜索内容匹配数量
      *
      * @param $text
@@ -244,8 +229,15 @@ class MxusearchService
         }
     }
 
+    /**
+     * 获取热门关键词列表
+     *
+     * @return array
+     */
     public function getHotWords()
     {
-        $array_hot = $this->search()->getHotQuery();
+        $hot = $this->search()->getHotQuery();
+
+        return $hot ?: [];
     }
 }

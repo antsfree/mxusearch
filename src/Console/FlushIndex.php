@@ -50,7 +50,7 @@ class FlushIndex extends Command
                 $this->error("搜索日志强制刷新失败\n");
             }
         } catch (\Exception $e) {
-            $this->error("讯搜服务异常\n");
+            return $this->error("讯搜服务异常\n");
         }
     }
 }
