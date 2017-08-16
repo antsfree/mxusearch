@@ -49,7 +49,7 @@ Antsfree\Mxusearch\MxusearchProvider::class
 
 
 | 序号 | artisan命令 | console释义 | 备注 | 
-:-- | :--: |:--: |:--: | --:
+| :--: | :--: |:--: |:--: |
 | 1 | search:add {id}  | 创建索引 | 单条支持即时同步，多条存在时间误差，具体在2~3分钟，视具体情况 |
 | 2 | search:delete {str_ids} | 删除索引 | 单条多条立即生效，无延迟 |
 | 3 | search:search | 查找索引 | 终端交互，可选择匹配范围 |
