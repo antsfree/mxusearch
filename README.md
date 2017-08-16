@@ -32,13 +32,14 @@ Antsfree\Mxusearch\MxusearchProvider::class
 | 4 | searchIndex | 查找索引 | 支持setFuzzy模糊查询，支持特定字段定向查询（column:key） |
 | 5 | cleanIndex | 清空索引 | 立即生效，无延迟 |
 | 6 | rebuildIndex | 重建索引 | 暂不支持 | 
-| 7 | getIndexCount | 获取索引总数 | 暂不支持 |
+| 7 | getIndexCount | 获取索引总数 |  |
 | 8 | checkServer | 检测全文检索服务状态 | 直接输出当前状态及索引条数 |
 | 9| flushIndex | 强制刷新搜索日志 |  |
-| 10| getHotWords | 获取热门搜索词 | 暂不支持 |
-| 11| getMatchNum | 获取索引匹配数量 | 暂不支持 |
-| 12| getSearchRate | 获取搜索频次 | 暂不支持 |
-| 13| flushIndex | 强制刷新索引 | 默认为异步创建索引，强制刷新实现索引的即加即搜 |
+| 10| getHotWords | 获取热门搜索词 |  |
+| 11| getMatchNum | 获取索引匹配数量 |  |
+| 12| flushIndex | 强制刷新索引 | 强制刷新实现索引的即加即搜 |
+| 13| flushLogging | 强制刷新搜索日志 |  |
+| 14| checkServer | 讯搜服务状态检测 |  |
 
 
 ### Artisan命令服务
