@@ -86,7 +86,9 @@ class SearchIndex extends Command
             }
             unset($text);
         }
+        // total index
+        $total = Mxusearch::getIndexCount();
 
-        return $this->line("搜索类型:{$search_area};\n根据关键词 < $key >, 共查询到 {$count} 条数据, 用时 {$duration} 秒");
+        return $this->line("搜索类型:{$search_area};\n根据关键词 < $key >, 在 {$total} 条索引中共查询到 {$count} 条数据, 用时 {$duration} 秒");
     }
 }
