@@ -65,6 +65,8 @@ class SearchIndex extends Command
         }
         $key = $this->ask('请输入需要查询的内容:');
 
+        // total index
+        $total    = Mxusearch::getIndexCount();
         $search   = Mxusearch::searchIndex($key, $field);
         $count    = isset($search['result']) ? count($search['result']) : 0;
         $duration = isset($search['duration']) ? $search['duration'] : 0;
@@ -86,8 +88,6 @@ class SearchIndex extends Command
             }
             unset($text);
         }
-        // total index
-        $total = Mxusearch::getIndexCount();
 
         return $this->line("搜索类型:{$search_area};\n根据关键词 < $key >, 在 {$total} 条索引中共查询到 {$count} 条数据, 用时 {$duration} 秒");
     }
