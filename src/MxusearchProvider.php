@@ -26,47 +26,14 @@ class MxusearchProvider extends ServiceProvider
             __DIR__ . '/../config/mxusearch.php' => config_path('mxusearch.php'),
         ], 'config');
         // import extend commands
-        $this->addConsoleCommands();
-    }
-
-    /**
-     * 扩展 console 命令
-     */
-    public function addConsoleCommands()
-    {
-        // search
-        $this->app->bindShared('mxusearch.search', function () {
-            return new SearchIndex();
-        });
-        // clear
-        $this->app->bindShared('mxusearch.index.clear', function () {
-            return new ClearIndex();
-        });
-        // delete by ids
-        $this->app->bindShared('mxusearch.index.del', function () {
-            return new DeleteIndex();
-        });
-        // check search server status
-        $this->app->bindShared('mxusearch.check.server', function () {
-            return new CheckService();
-        });
-        // flush search index
-        $this->app->bindShared('mxusearch.index.flush', function () {
-            return new FlushIndex();
-        });
-        // scws text for keywords
-        $this->app->bindShared('mxusearch.index.scws', function () {
-            return new ScwsText();
-        });
-
-        $this->commands([
-            'mxusearch.search',
-            'mxusearch.index.clear',
-            'mxusearch.index.del',
-            'mxusearch.index.flush',
-            'mxusearch.index.scws',
-            'mxusearch.check.server',
-        ]);
+        $$this->commands(
+            SearchIndex::class,
+            ClearIndex::class,
+            DeleteIndex::class,
+            CheckService::class,
+            FlushIndex::class,
+            ScwsText::class
+        );
     }
 
     /**
