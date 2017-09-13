@@ -26,7 +26,7 @@ class MxusearchProvider extends ServiceProvider
             __DIR__ . '/../config/mxusearch.php' => config_path('mxusearch.php'),
         ], 'config');
         // import extend commands
-        $$this->commands(
+        $this->commands(
             SearchIndex::class,
             ClearIndex::class,
             DeleteIndex::class,
