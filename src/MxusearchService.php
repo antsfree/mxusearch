@@ -53,6 +53,7 @@ class MxusearchService
      * 增加索引方法
      *
      * @param $data
+     *
      * @return mixed
      */
     public function addIndex($data)
@@ -73,6 +74,7 @@ class MxusearchService
      * 删除指定索引方法,支持批量删除
      *
      * @param array $arr_id
+     *
      * @return mixed
      */
     public function deleteIndex(array $arr_id)
@@ -116,6 +118,7 @@ class MxusearchService
      * 获取索引总数
      *
      * @param null $key
+     *
      * @return mixed
      */
     public function getIndexCount($key = null)
@@ -129,6 +132,7 @@ class MxusearchService
      * 获取搜索内容匹配数量
      *
      * @param $text
+     *
      * @return int
      */
     public function getMatchNum($text)
@@ -141,24 +145,27 @@ class MxusearchService
     /**
      * 索引搜索
      *
-     * @param $key @关键词
-     * @param null $field @匹配字段
+     * @param        $key
+     * @param string $field
+     * @param null   $limit
+     * @param int    $page
      *
      * @return array
      */
-    public function searchIndex($key, $field = null)
+    public function searchIndex($key, $field = '', $page = 1, $limit = null)
     {
         // 模糊搜索
         $this->search()->setFuzzy(true);
         // 同义词搜索
         $this->search()->setAutoSynonyms(true);
         // 查询
-        if (!$field) {
-            // set query
-            $this->search()->setQuery($key);
-        } else {
-            // set query
-            $this->search()->setQuery($field . ':' . $key);
+        $query = isset($field) && $field ? $field . ':' . $key : $key;
+        // set query
+        $this->search()->setQuery($query);
+        // limit
+        if ($limit) {
+            $skip = ($page - 1) * $limit;
+            $this->search()->setLimit($limit, $skip);
         }
         // search time
         $search_begin    = microtime(true);
@@ -250,8 +257,9 @@ class MxusearchService
     /**
      * 内容分词,获取关键词
      *
-     * @param $text
+     * @param     $text
      * @param int $count
+     *
      * @return array
      */
     public function getKeyWords($text, $count = 10)
