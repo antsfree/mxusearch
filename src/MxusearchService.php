@@ -147,12 +147,12 @@ class MxusearchService
      *
      * @param        $key
      * @param string $field
-     * @param null   $limit
      * @param int    $page
+     * @param int    $limit
      *
      * @return array
      */
-    public function searchIndex($key, $field = '', $page = 1, $limit = null)
+    public function searchIndex($key, $field = '', $page = 1, $limit = 0)
     {
         // 模糊搜索
         $this->search()->setFuzzy(true);
