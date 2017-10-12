@@ -38,7 +38,7 @@ class ScwsText extends Command
     {
         $text     = $this->ask('请输入需要分词的内容:');
         $word_num = $this->ask('请设置分词后返回关键词的数量:');
-        $count    = $word_num ? intval($word_num) : 10;
+        $count    = $word_num ? abs(intval($word_num)) : 10;
         try {
             $keywords = Mxusearch::getKeyWords($text, $count);
             if ($keywords) {

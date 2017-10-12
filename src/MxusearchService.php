@@ -180,10 +180,13 @@ class MxusearchService
                 }
             }
         }
+        // 获取默认10个关联搜索词
+        $related_words = $this->search()->getRelatedQuery($key, 10) ?: [];
         // 整合结果
         $search_result = [
-            'result'   => $result,
-            'duration' => $search_duration,
+            'result'        => $result,
+            'duration'      => $search_duration,
+            'related_words' => $related_words,
         ];
         // refresh search log
         $this->flushLogging();

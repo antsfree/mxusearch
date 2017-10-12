@@ -66,8 +66,12 @@ class SearchIndex extends Command
         $key = $this->ask('请输入需要查询的内容:');
 
         // total index
-        $total    = Mxusearch::getIndexCount();
-        $search   = Mxusearch::searchIndex($key, $field);
+        try {
+            $total  = Mxusearch::getIndexCount();
+            $search = Mxusearch::searchIndex($key, $field);
+        } catch (\Exception $e) {
+            return $this->error("讯搜服务异常\n");
+        }
         $count    = isset($search['result']) ? count($search['result']) : 0;
         $duration = isset($search['duration']) ? $search['duration'] : 0;
         if (isset($search['result']) && $search['result']) {
@@ -89,6 +93,15 @@ class SearchIndex extends Command
             unset($text);
         }
 
-        return $this->line("搜索类型:{$search_area};\n根据关键词 < $key >, 在 {$total} 条索引中共查询到 {$count} 条数据, 用时 {$duration} 秒");
+        // 搜索结果
+        $this->line("搜索类型:{$search_area};\n根据关键词 < $key >, 在 {$total} 条索引中共查询到 {$count} 条数据, 用时 {$duration} \n");
+        // 相关搜索词
+        $related_words = '';
+        if ($search['related_words']) {
+            foreach ($search['related_words'] as $related_word) {
+                $related_words .= $related_word . " ";
+            }
+        }
+        $this->line("相关搜索词: $related_words");
     }
 }
