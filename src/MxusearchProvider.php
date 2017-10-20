@@ -6,6 +6,7 @@ use Antsfree\Mxusearch\Console\CheckService;
 use Antsfree\Mxusearch\Console\ClearIndex;
 use Antsfree\Mxusearch\Console\DeleteIndex;
 use Antsfree\Mxusearch\Console\FlushIndex;
+use Antsfree\Mxusearch\Console\ResetIni;
 use Antsfree\Mxusearch\Console\ScwsText;
 use Antsfree\Mxusearch\Console\SearchIndex;
 use Illuminate\Support\ServiceProvider;
@@ -38,7 +39,8 @@ class MxusearchProvider extends ServiceProvider
             DeleteIndex::class,
             CheckService::class,
             FlushIndex::class,
-            ScwsText::class
+            ScwsText::class,
+            ResetIni::class
         );
     }
 

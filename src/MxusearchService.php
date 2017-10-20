@@ -23,31 +23,31 @@ class MxusearchService
     public function __construct()
     {
         $this->ini_file = config_path(config('mxusearch.ini_file_name'));
-        $this->checkIniFile();
+        if (!file_exists($this->ini_file)) {
+            $this->resetIniFile();
+        }
         $this->xs     = new XS($this->ini_file);
         $this->doc    = new Doc();
         $this->server = new Server();
     }
 
     /**
-     * 检测ini文件
+     * 重置ini文件
      */
-    private function checkIniFile()
+    public function resetIniFile()
     {
-        if (!file_exists($this->ini_file)) {
-            $config             = [
-                '{{MXUSEARCH_INDEX_HOST}}'  => config('mxusearch.index_host'),
-                '{{MXUSEARCH_SEARCH_HOST}}' => config('mxusearch.search_host'),
-                '{{MXUSEARCH_CHARSET}}'     => config('mxusearch.charset'),
-                '{{MXUSEARCH_PROJECT}}'     => config('mxusearch.project'),
-                '{{MXUSEARCH_INDEX_PORT}}'  => config('mxusearch.index_port'),
-                '{{MXUSEARCH_SEARCH_PORT}}' => config('mxusearch.search_port'),
-            ];
-            $ini_dir            = __DIR__ . '/../config/mxusearch.ini';
-            $config_content     = file_get_contents($ini_dir);
-            $new_config_content = strtr($config_content, $config);
-            file_put_contents($this->ini_file, $new_config_content);
-        }
+        $config             = [
+            '{{MXUSEARCH_INDEX_HOST}}'  => config('mxusearch.index_host'),
+            '{{MXUSEARCH_SEARCH_HOST}}' => config('mxusearch.search_host'),
+            '{{MXUSEARCH_CHARSET}}'     => config('mxusearch.charset'),
+            '{{MXUSEARCH_PROJECT}}'     => config('mxusearch.project'),
+            '{{MXUSEARCH_INDEX_PORT}}'  => config('mxusearch.index_port'),
+            '{{MXUSEARCH_SEARCH_PORT}}' => config('mxusearch.search_port'),
+        ];
+        $ini_dir            = __DIR__ . '/../config/mxusearch.ini';
+        $config_content     = file_get_contents($ini_dir);
+        $new_config_content = strtr($config_content, $config);
+        file_put_contents($this->ini_file, $new_config_content);
     }
 
     /**
