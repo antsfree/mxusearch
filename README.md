@@ -69,10 +69,11 @@ php artisan vendor:publish --provider="Antsfree\Mxusearch\MxusearchProvider"
 | 1 | search:add | 创建索引 | 单条支持即时同步，多条存在时间误差，具体在2~3分钟，视具体情况 |
 | 2 | search:delete | 删除索引 | 单条多条立即生效，无延迟 |
 | 3 | search:search | 查找索引 | 终端交互，可选择匹配范围 |
-| 4 | search:clear| 清空索引 |  立即生效，无延迟 |
+| 4 | search:clear | 清空索引 |  立即生效，无延迟 |
 | 5 | search:check-server | 检测全文检索服务状态 | 直接输出当前状态及索引条数 |
-| 6| search:flush| 强制刷新索引及搜索日志 | 默认为异步创建索引，强制刷新实现索引的即加即搜 |
-| 7| search:scws| 文本分词命令 |  |
+| 6 | search:flush | 强制刷新索引及搜索日志 | 默认为异步创建索引，强制刷新实现索引的即加即搜 |
+| 7 | search:scws | 文本分词命令 |  |
+| 8 | search:reset-ini | 重置ini文件 | 根据配置项重新配置INI文件 |
 
 
 ### 索引管理注意事项：
