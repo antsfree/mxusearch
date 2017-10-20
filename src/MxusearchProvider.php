@@ -24,6 +24,7 @@ class MxusearchProvider extends ServiceProvider
         // publish a config file
         $this->publishes([
             __DIR__ . '/../config/mxusearch.php' => config_path('mxusearch.php'),
+            __DIR__ . '/../config/mxusearch.ini' => config_path('mxusearch.ini'),
         ], 'config');
         // import extend commands
         $this->commands(
