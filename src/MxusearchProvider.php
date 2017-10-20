@@ -22,17 +22,13 @@ class MxusearchProvider extends ServiceProvider
     public function boot()
     {
         // publish a config file
-        $ini_dir = __DIR__ . '/../config/mxusearch.ini';
         $php_dir = __DIR__ . '/../config/mxusearch.php';
         if (function_exists('config_path')) {
-            $publishIniPath = config_path('mxusearch.ini');
             $publishPhpPath = config_path('mxusearch.php');
         } else {
-            $publishIniPath = base_path('config/mxusearch.ini');
             $publishPhpPath = base_path('config/mxusearch.php');
         }
         $this->publishes([
-            $ini_dir => $publishIniPath,
             $php_dir => $publishPhpPath,
         ], 'config');
         // import extend commands
