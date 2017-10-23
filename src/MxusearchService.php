@@ -302,4 +302,60 @@ class MxusearchService
         // array
         return $words;
     }
+
+    /**
+     * 多条件查询功能
+     *
+     * @param        $keyword
+     * @param string $field
+     * @param array  $other_field_value
+     * @param int    $limit
+     * @param int    $page
+     *
+     * @return array
+     */
+    public function multiSearch($keyword, $field = '', array $other_field_value = [], $limit = 0, $page = 1)
+    {
+        // 模糊搜索
+        $this->search()->setFuzzy(true);
+        // 同义词搜索
+        $this->search()->setAutoSynonyms(true);
+        // 查询条件
+        $keyword_query = isset($field) && $field ? $field . ':' . $keyword : $keyword;
+        $other_query   = ' ';
+        if ($other_field_value) {
+            foreach ($other_field_value as $k => $v) {
+                $other_query .= $k . ':' . $v;
+                $other_query .= ' ';
+            }
+        }
+        $query = trim($keyword_query . $other_query);
+
+        // set query
+        $this->search()->setQuery($query);
+        // limit
+        if ($limit) {
+            $skip = ($page - 1) * $limit;
+            $this->search()->setLimit($limit, $skip);
+        }
+        $doc = $this->search()->search();
+        // get search result
+        $result = [];
+        if ($doc) {
+            foreach ($doc as $k => $v) {
+                foreach ($v as $kk => $vv) {
+                    $result[$k][$kk] = $vv;
+                }
+            }
+        }
+
+        // 整合结果
+        $search_result = [
+            'result' => $result,
+        ];
+        // refresh search log
+        $this->flushLogging();
+
+        return $search_result;
+    }
 }

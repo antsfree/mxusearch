@@ -8,6 +8,8 @@
 
 ```
 composer require antsfree/mxusearch dev-master
+OR
+composer require antsfree/mxusearch '^0.1'
 ```
 
 **2.** 在 config/app.php 的服务数组 providers 中添加以下服务.
@@ -33,10 +35,22 @@ php artisan vendor:publish --provider="Antsfree\Mxusearch\MxusearchProvider"
 
 | env配置 | 中文释义 | 默认值 |
 | :--: | :--: | :--: |
-| MXUSEARCH\_HOST | 索引服务器IP | 127.0.0.1 | 
+| MXUSEARCH_PROJECT | 索引库名 | mxu_project |
+| MXUSEARCH_CHARSET | 字符编码 | utf-8 |
+| MXUSEARCH\_INDEX_HOST | 索引服务器IP | 127.0.0.1(分布式部署配置详见“注意”) | 
 | MXUSEARCH\_INDEX_PORT | 索引端口 | 8383 |
-| MXUSEARCH\_PORT | 搜索端口 | 8384 |
+| MXUSEARCH\_SEARCH_HOST | 搜索服务器IP | 127.0.0.1(分布式部署配置详见“注意”) |
+| MXUSEARCH\_SEARCH_PORT | 搜索端口 | 8384 |
 | MXUSEARCH\_INI | INI配置文件名 | mxusearch.ini |
+
+> 注意：以上配置全都有默认值，其中索引、搜索的host在分布式部署上需要注意区分。统一指向讯搜服务所在服务器。
+
+**6.** 执行`console`命令，生成`ini`文件
+
+```
+php artisan search:reset-ini
+```
+
 
 ### 基本服务方法设定
 
@@ -57,6 +71,8 @@ php artisan vendor:publish --provider="Antsfree\Mxusearch\MxusearchProvider"
 | 13| flushLogging | 强制刷新搜索日志 |  |
 | 14| checkServer | 讯搜服务状态检测 |  |
 | 15| getKeyWords | 文本分词功能 |  |
+| 16| resetIniFile | 重置INI文件方法 |  |
+| 17| multiSearch | 多条件查询 |  |
 
 ### Artisan命令服务
 
@@ -75,6 +91,84 @@ php artisan vendor:publish --provider="Antsfree\Mxusearch\MxusearchProvider"
 | 7 | search:scws | 文本分词命令 |  |
 | 8 | search:reset-ini | 重置ini文件 | 根据配置项重新配置INI文件 |
 
+### ini配置
+
+1、 `ini`配置文件：`mxu-backend/config/mxusearch.ini` ;
+
+2、 服务器配置
+
+```
+project.name = {{MXUSEARCH_PROJECT}}// 项目名称
+project.default_charset = {{MXUSEARCH_CHARSET}}// 字符编码
+server.index = {{MXUSEARCH_INDEX_HOST}}:{{MXUSEARCH_INDEX_PORT}}// 索引服务端配置(Host&端口)
+server.search = {{MXUSEARCH_SEARCH_HOST}}:{{MXUSEARCH_SEARCH_PORT}}// 搜索服务端配置(Host&端口)
+```
+3、索引字段配置
+
+```
+[id]
+type = id
+tokenizer = full
+
+[column_id]
+tokenizer = full
+index = self
+
+......
+......
+
+```
+
+### 方法说明
+
+#### multiSearch（多条件查询）
+
+**方法示例**
+
+```
+/**
+ * 多条件查询功能
+ *
+ * @param        $keyword
+ * @param string $field
+ * @param array  $other_field_value
+ * @param int    $limit
+ * @param int    $page
+ *
+ * @return array
+ */
+public function multiSearch($keyword, $field = '', array $other_field_value = [], $limit = 0, $page = 1);
+```
+
+**请求参数**
+
+| 参数名 | 类型 | 参数说明 | 必填 | 备注 |
+| --- | --- | --- | --- | --- |
+| $keyword | string | 关键词 | N |  |
+| $field | string | 字段名 | N | 默认null，表示全文匹配 |
+| $other_field_value | array | 其他多条件参数 | N | 默认空数组 | 
+| $limit | int | 分页参数 |  |
+| $page | int | 分页参数 |  |
+
+**请求示例**
+
+```
+$key = '我是关键词';
+$field = 'title';
+// 多条件
+$other_field_value = [
+	'site_id': 1,
+	'column_id': 2,
+	'type': 'article',
+	......
+];
+// 分页控制
+$limit = 10;
+$page = 1;
+
+// 调用服务
+Mxusearch::multiSearch($key, $field, $other_field, $limit, $page);
+```
 
 ### 索引管理注意事项：
 
