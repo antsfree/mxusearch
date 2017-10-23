@@ -309,12 +309,13 @@ class MxusearchService
      * @param        $keyword
      * @param string $field
      * @param array  $other_field_value
+     * @param array  $range
      * @param int    $limit
      * @param int    $page
      *
      * @return array
      */
-    public function multiSearch($keyword, $field = '', array $other_field_value = [], $limit = 0, $page = 1)
+    public function multiSearch($keyword, $field = '', array $other_field_value = [], array $range = [], $limit = 0, $page = 1)
     {
         // 模糊搜索
         $this->search()->setFuzzy(true);
@@ -333,6 +334,17 @@ class MxusearchService
 
         // set query
         $this->search()->setQuery($query);
+        // add Range
+        if ($range) {
+            foreach ($range as $k => $v) {
+                $range_field = isset($v['field']) && $v['field'] ? $v['field'] : '';
+                $range_from  = isset($v['from']) && $v['from'] ? $v['from'] : '';
+                $range_to    = isset($v['to']) && $v['to'] ? $v['to'] : '';
+                if ($range_field && $range_from && $range_to) {
+                    $this->search()->addRange($range_field, $range_from, $range_to);
+                }
+            }
+        }
         // limit
         if ($limit) {
             $skip = ($page - 1) * $limit;

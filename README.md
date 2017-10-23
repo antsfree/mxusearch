@@ -132,12 +132,13 @@ index = self
  * @param        $keyword
  * @param string $field
  * @param array  $other_field_value
+ * @param array  $range
  * @param int    $limit
  * @param int    $page
  *
  * @return array
  */
-public function multiSearch($keyword, $field = '', array $other_field_value = [], $limit = 0, $page = 1);
+public function multiSearch($keyword, $field = '', array $other_field_value = [], array $range = [], $limit = 0, $page = 1);
 ```
 
 **请求参数**
@@ -147,6 +148,7 @@ public function multiSearch($keyword, $field = '', array $other_field_value = []
 | $keyword | string | 关键词 | N |  |
 | $field | string | 字段名 | N | 默认null，表示全文匹配 |
 | $other_field_value | array | 其他多条件参数 | N | 默认空数组 | 
+| $range | array | N | 区间条件筛选
 | $limit | int | 分页参数 |  |
 | $page | int | 分页参数 |  |
 
@@ -162,12 +164,17 @@ $other_field_value = [
 	'type': 'article',
 	......
 ];
+$range = [
+	'field' => 'publish_time',
+	'from'  => '2017-10-18 12:07:26',
+	'to'    => '2017-10-23 17:07:26',
+];
 // 分页控制
 $limit = 10;
 $page = 1;
 
 // 调用服务
-Mxusearch::multiSearch($key, $field, $other_field, $limit, $page);
+Mxusearch::multiSearch($key, $field, $other_field, $range, $limit, $page);
 ```
 
 ### 索引管理注意事项：
