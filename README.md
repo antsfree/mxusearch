@@ -148,9 +148,10 @@ public function multiSearch($keyword, $field = '', array $other_field_value = []
 | $keyword | string | 关键词 | N |  |
 | $field | string | 字段名 | N | 默认null，表示全文匹配 |
 | $other_field_value | array | 其他多条件参数 | N | 默认空数组 | 
-| $range | array | N | 区间条件筛选
-| $limit | int | 分页参数 |  |
-| $page | int | 分页参数 |  |
+| $range | array | 区间条件筛选 | N |  |
+| $limit | int | 分页参数 | N | 默认10条 |
+| $page | int | 分页参数 | N | 默认1 |
+
 
 **请求示例**
 
