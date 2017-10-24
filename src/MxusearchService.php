@@ -360,14 +360,9 @@ class MxusearchService
                 }
             }
         }
-
-        // 整合结果
-        $search_result = [
-            'result' => $result,
-        ];
         // refresh search log
         $this->flushLogging();
 
-        return $search_result;
+        return $result;
     }
 }
