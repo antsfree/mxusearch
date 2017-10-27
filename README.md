@@ -90,6 +90,7 @@ php artisan search:reset-ini
 | 6 | search:flush | 强制刷新索引及搜索日志 | 默认为异步创建索引，强制刷新实现索引的即加即搜 |
 | 7 | search:scws | 文本分词命令 |  |
 | 8 | search:reset-ini | 重置ini文件 | 根据配置项重新配置INI文件 |
+| 9 | search:list-hotwords | 查看热词列表 | 命令行直接输出 |
 
 ### ini配置
 

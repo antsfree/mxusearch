@@ -38,9 +38,12 @@ class HotWords extends Command
     {
         try {
             // 服务获取的热词
-            $server_hot = Mxusearch::getHotWords();
-            if (!$server_hot) {
-                return $this->line("搜索服务正常,当前共有 $count 条索引\n");
+            $hot_words = Mxusearch::getHotWords();
+            if (!$hot_words) {
+                return $this->line("暂无热词!\n");
+            }
+            foreach ($hot_words as $hot_word => $count) {
+                $this->line("热词: [$hot_word] ,搜索频次为: [$count] 次。");
             }
         } catch (\Exception $e) {
             return $this->error("讯搜服务异常\n");
