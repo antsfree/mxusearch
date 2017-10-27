@@ -9,6 +9,7 @@ use Antsfree\Mxusearch\Console\FlushIndex;
 use Antsfree\Mxusearch\Console\ResetIni;
 use Antsfree\Mxusearch\Console\ScwsText;
 use Antsfree\Mxusearch\Console\SearchIndex;
+use Antsfree\Mxusearch\Console\Hotwords;
 use Illuminate\Support\ServiceProvider;
 
 class MxusearchProvider extends ServiceProvider
@@ -40,7 +41,8 @@ class MxusearchProvider extends ServiceProvider
             CheckService::class,
             FlushIndex::class,
             ScwsText::class,
-            ResetIni::class
+            ResetIni::class,
+            HotWords::class
         );
     }
 
