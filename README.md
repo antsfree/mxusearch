@@ -136,10 +136,11 @@ index = self
  * @param array  $range
  * @param int    $limit
  * @param int    $page
+ * @param array  $sorts
  *
  * @return array
  */
-public function multiSearch($keyword, $field = '', array $other_field_value = [], array $range = [], $limit = 0, $page = 1);
+public function multiSearch($keyword, $field = '', array $other_field_value = [], array $range = [], $limit = 0, $page = 1, array $sorts = []);
 ```
 
 **请求参数**
