@@ -1,4 +1,5 @@
 <?php
+
 namespace Antsfree\Mxusearch;
 
 use Antsfree\Mxusearch\Sdk\XS;
@@ -312,10 +313,11 @@ class MxusearchService
      * @param array  $range
      * @param int    $limit
      * @param int    $page
+     * @param array  $sorts
      *
      * @return array
      */
-    public function multiSearch($keyword, $field = '', array $other_field_value = [], array $range = [], $limit = 0, $page = 1)
+    public function multiSearch($keyword, $field = '', array $other_field_value = [], array $range = [], $limit = 0, $page = 1, array $sorts = [])
     {
         // 模糊搜索
         $this->search()->setFuzzy(true);
@@ -349,6 +351,10 @@ class MxusearchService
         if ($limit) {
             $skip = ($page - 1) * $limit;
             $this->search()->setLimit($limit, $skip);
+        }
+        // sort
+        if ($sorts) {
+            $this->search()->setMultiSort($sorts);
         }
         $doc = $this->search()->search();
         // get search result
