@@ -152,6 +152,7 @@ public function multiSearch($keyword, $field = '', array $other_field_value = []
 | $range | array | 区间条件筛选 | N |  |
 | $limit | int | 分页参数 | N | 默认10条 |
 | $page | int | 分页参数 | N | 默认1 |
+| $sorts | array | 排序条件 | N | 默认空 |
 
 
 **请求示例**
@@ -174,9 +175,14 @@ $range = [
 // 分页控制
 $limit = 10;
 $page = 1;
+// 排序条件(true 为正序, false 为倒序)
+$sorts = [
+    'field_1' => true, // 根据 field_1 正序排序
+    'field_2' => false // 根据 field_2 倒序排序
+];
 
 // 调用服务
-Mxusearch::multiSearch($key, $field, $other_field, $range, $limit, $page);
+Mxusearch::multiSearch($key, $field, $other_field, $range, $limit, $page, $sorts);
 ```
 
 ### 索引管理注意事项：
