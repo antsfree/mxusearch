@@ -163,15 +163,18 @@ $key = '我是关键词';
 $field = 'title';
 // 多条件
 $other_field_value = [
-	'site_id': 1,
-	'column_id': 2,
-	'type': 'article',
-	......
+	'site_id'   => 1,
+	'column_id' => 2,
+	'type'      => 'article',
+	// ...
 ];
 $range = [
-	'field' => 'publish_time',
-	'from'  => '2017-10-18 12:07:26',
-	'to'    => '2017-10-23 17:07:26',
+    [
+    	'field' => 'publish_time',
+    	'from'  => '2017-10-18 12:07:26',
+    	'to'    => '2017-10-23 17:07:26',
+    ],
+    // ...
 ];
 // 分页控制
 $limit = 10;
