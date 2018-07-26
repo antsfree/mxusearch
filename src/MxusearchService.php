@@ -320,7 +320,7 @@ class MxusearchService
     public function multiSearch($keyword, $field = '', array $other_field_value = [], array $range = [], $limit = 0, $page = 1, array $sorts = [])
     {
         // 模糊搜索
-        $this->search()->setFuzzy(true);
+        $this->search()->setFuzzy(false);
         // 同义词搜索
         $this->search()->setAutoSynonyms(true);
         // 查询条件
