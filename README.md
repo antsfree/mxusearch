@@ -196,6 +196,10 @@ Mxusearch::multiSearch($key, $field, $other_field, $range, $limit, $page, $sorts
 3. 当前只支持单库存储；
 4. ini配置默认存于`laravel config`目录中；
 
+### TODO List
+
+1. 增加热词删除服务;
+2. 重构或者优化高级搜索服务,支持搜索条件/类型可扩展;
 
 ### 讯搜服务官方SDK参考
 [讯搜 SDK 指南](http://www.xunsearch.com/doc/php/guide/start.overview)
