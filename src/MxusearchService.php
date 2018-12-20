@@ -328,8 +328,14 @@ class MxusearchService
         $other_query   = ' ';
         if ($other_field_value) {
             foreach ($other_field_value as $k => $v) {
-                $other_query .= $k . ':' . $v;
-                $other_query .= ' ';
+                // 增加排除参数
+                $arr = explode('_', $k);
+                if ($arr[0] == 'not') {
+                    $other_query .= ' NOT ' . $arr[1] . ':' . $v;
+                } else {
+                    $other_query .= $k . ':' . $v;
+                    $other_query .= ' ';
+                }
             }
         }
         $query = trim($keyword_query . $other_query);
