@@ -6,12 +6,12 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'index_host'    => env('MXUSEARCH_INDEX_HOST', '127.0.0.1'),
-    'search_host'   => env('MXUSEARCH_SEARCH_HOST', '127.0.0.1'),
-    'index_port'    => env('MXUSEARCH_INDEX_PORT', '8383'),
-    'search_port'   => env('MXUSEARCH_SEARCH_PORT', '8384'),
-    'charset'       => 'utf-8',
-    'project'       => 'mxu_publish',
+    'index_host'            => env('MXUSEARCH_INDEX_HOST', '127.0.0.1'),
+    'search_host'           => env('MXUSEARCH_SEARCH_HOST', '127.0.0.1'),
+    'index_port'            => env('MXUSEARCH_INDEX_PORT', '8383'),
+    'search_port'           => env('MXUSEARCH_SEARCH_PORT', '8384'),
+    'charset'               => 'utf-8',
+    'project'               => 'mxu_publish',
 
     /*
     |--------------------------------------------------------------------------
@@ -19,5 +19,21 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'ini_file_name' => env('MXUSEARCH_INI', 'mxusearch.ini'),
+    'ini_file_name'         => env('MXUSEARCH_INI', 'mxusearch.ini'),
+
+    /*
+    |--------------------------------------------------------------------------
+    |  是否开启模糊搜索
+    |--------------------------------------------------------------------------
+    |
+    */
+    'multi_search_fuzzy'    => false,
+
+     /*
+     |--------------------------------------------------------------------------
+     |  是否开启同义词搜索
+     |--------------------------------------------------------------------------
+     |
+     */
+    'multi_search_synonyms' => true,
 ];
